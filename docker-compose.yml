@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  keycloak:
+    hostname: keycloak-host
+    image: jizuzquiza/keycloak:21.1.1
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_PASSWORD: password@1
+      KEYCLOAK_ADMIN_PASSWORD: password@1
+      KEYCLOAK_IMPORT: /tmp/sample-realm.json
+    volumes:
+      - ./data/sample-realm.json:/tmp/sample-realm.json
+      - ./data:/opt/keycloak/data/import
+    ports:
+    - 8080:8080
+    command:
+      start-dev --import-realm --hostname-port=13001 --health-enabled=true
